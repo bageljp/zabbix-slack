@@ -1,7 +1,7 @@
 
-# Installation
+# Install
 
-### Zabbix server
+### Zabbix Server
 
 ```
 cd /usr/lib/zabbix/alertscripts
