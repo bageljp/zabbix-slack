@@ -38,9 +38,11 @@ vi slack.sh
 ### Zabbix Server Web Interface settings
 
 * Administration MediaType
+
 ![Zabbix Server MediaType settings](https://raw.githubusercontent.com/bageljp/zabbix-slack/master/img/zabbix_mediatype.png "Zabbix Server MediaType settings.")
 
 * Action settings ``default message``
+
 ![Zabbix Server Action settings](https://raw.githubusercontent.com/bageljp/zabbix-slack/master/img/zabbix_action.png "Zabbix Server Action settings.")
 
 * copy and paste.
