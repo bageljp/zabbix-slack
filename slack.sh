@@ -1,12 +1,12 @@
 #!/bin/bash
 
 # config
-slack_url='https://hooks.slack.com/services/XXXXX'
+slack_url='https://hooks.slack.com/services/XXX/XXXX/XXXXX'
 slack_username='Zabbix'
 channel="$1"
 title="$2"
 params="$3"
-emoji=':zabbix:'
+emoji=':ghost:'
 timeout="5"
 cmd_curl="/usr/bin/curl"
 

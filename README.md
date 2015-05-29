@@ -1,10 +1,20 @@
 
+# About
+
+Zabbix Server Action to Slack.com
+
+![Zabbix Server to Slack.com](https://raw.githubusercontent.com/bageljp/zabbix-slack/master/img/zabbix_slack.png "Zabbix Server to Slack.com")
+
 # Installation
 
-### Zabbix Server
+### Slack.com settings
+
+[Slak.com Incoming Webhooks]:https://api.slack.com/incoming-webhooks
+
+### Script settings in Zabbix Server
 
 ```
-cd /usr/lib/zabbix/alertscripts
+cd /usr/lib/zabbix/alertscripts    # AlertScriptsPath
 wget https://raw.githubusercontent.com/bageljp/zabbix-slack/master/slack.sh
 chmod a+x slack.sh
 vi slack.sh
@@ -13,11 +23,11 @@ vi slack.sh
 <table>
   <tr>
     <td><tt>slack_url</tt></td>
-	<td>slack integration url.</td>
+	<td>slack integration url. (ex. https://hooks.slack.com/services/XXX/XXXX/XXXXX)</td>
   </tr>
   <tr>
     <td><tt>slack_username</tt></td>
-    <td>slack username.</td>
+    <td>slack post username.</td>
   </tr>
   <tr>
     <td><tt>emoji</tt></td>
@@ -25,25 +35,16 @@ vi slack.sh
   </tr>
 </table>
 
-### Zabbix Server settings
+### Zabbix Server Web Interface settings
 
 * Administration MediaType
-<table>
-  <tr>
-    <td><tt>Name</tt></td>
-	<td>Slack</td>
-  </tr>
-  <tr>
-    <td><tt>Type</tt></td>
-    <td>script</td>
-  </tr>
-  <tr>
-    <td><tt>Script name</tt></td>
-    <td>slack.sh</td>
-  </tr>
-</table>
+![Zabbix Server MediaType settings](https://raw.githubusercontent.com/bageljp/zabbix-slack/master/img/zabbix_mediatype.png "Zabbix Server MediaType settings.")
 
 * Action settings ``default message``
+
+![Zabbix Server Action settings](https://raw.githubusercontent.com/bageljp/zabbix-slack/master/img/zabbix_action.png "Zabbix Server Action settings.")
+
+* copy and paste.
 ```
 HOST: {HOST.NAME}
 TRIGGER_NAME: {TRIGGER.NAME}
