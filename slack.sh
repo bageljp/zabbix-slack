@@ -19,6 +19,7 @@ trigger_url="`echo \"${params}\" | grep 'TRIGGER_URL: ' | awk -F'TRIGGER_URL: ' 
 datetime="`echo \"${params}\" | grep 'DATETIME: ' | awk -F'DATETIME: ' '{print $2}' | sed -e 's///g'`"
 item_value="`echo \"${params}\" | grep 'ITEM_VALUE: ' | awk -F'ITEM_VALUE: ' '{print $2}' | sed -e 's///g'`"
 event_id="`echo \"${params}\" | grep 'EVENT_ID: ' | awk -F'EVENT_ID: ' '{print $2}' | sed -e 's///g'`"
+mention="`echo \"${params}\" | grep 'MENTION: ' | awk -F'MENTION: ' '{print $2}' | sed -e 's///g'`"
 
 # set color
 if [ "${trigger_status}" == 'OK' ]; then
@@ -46,11 +47,18 @@ else
   color="#808080"
 fi
 
+# mention
+if [ -n "${mention}" ] ;then
+  mention="\"text\": \"${mention} Hey!!\",
+  \"link_names\": 1,"
+fi
+
 # set payload
 payload="payload={
   \"channel\": \"${channel}\",
   \"username\": \"${slack_username}\",
   \"icon_emoji\": \"${emoji}\",
+  ${mention}
   \"attachments\": [
     {
       \"fallback\": \"Date / Time: ${datetime} - ${title}\",
