@@ -15,7 +15,7 @@ Zabbix Server Action to Slack.com
 
 ```
 cd /usr/lib/zabbix/alertscripts    # AlertScriptsPath
-wget https://raw.githubusercontent.com/bageljp/zabbix-slack/master/slack.sh
+wget https://raw.githubusercontent.com/hdkiller/zabbix-slack/master/slack.sh
 chmod a+x slack.sh
 vi slack.sh
 ```
@@ -29,6 +29,41 @@ vi slack.sh
     <td><tt>slack_username</tt></td>
     <td>slack post username.</td>
   </tr>
+  <tr>
+    <td><tt>zabbix_baseurl</tt></td>
+    <td>full URL of zabbix mainpage</td>
+  </tr>
+  <tr>
+    <td><tt>zabbix_username</tt></td>
+    <td>zabbix username to grab the chart</td>
+  </tr>
+  <tr>
+    <td><tt>zabbix_password</tt></td>
+    <td>zabbix password</td>
+  </tr>
+  <tr>
+    <td><tt>chart_period</tt></td>
+    <td>how many seconds to be shown on the chart</td>
+  </tr>
+  <tr>
+    <td><tt>chart_width</tt></td>
+    <td>width of the chart</td>
+  </tr>
+  <tr>
+    <td><tt>chart_height</tt></td>
+    <td>height of the chart</td>
+  </tr>
+  <tr>
+    <td><tt>chart_baseurl</tt></td>
+    <td>where the charts will be hosted</td>
+  </tr>
+  <tr>
+    <td><tt>chart_basedir</tt></td>
+    <td>charts will be downloaded there</td>
+  </tr>
+
+
+
   <tr>
     <td><tt>emoji</tt></td>
     <td>slack emoji.</td>
@@ -52,6 +87,7 @@ TRIGGER_NAME: {TRIGGER.NAME}
 TRIGGER_STATUS: {TRIGGER.STATUS}
 TRIGGER_SEVERITY: {TRIGGER.SEVERITY}
 DATETIME: {DATE} / {TIME}
+ITEM_ID: {ITEM.ID1}
 ITEM_NAME: {ITEM.NAME1}
 ITEM_KEY: {ITEM.KEY1}
 ITEM_VALUE: {ITEM.VALUE1}
