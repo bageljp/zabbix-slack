@@ -3,7 +3,7 @@
 
 Zabbix Server Action to Slack.com
 
-![Zabbix Server to Slack.com](https://raw.githubusercontent.com/bageljp/zabbix-slack/master/img/zabbix_slack.png "Zabbix Server to Slack.com")
+![Zabbix Server to Slack.com](https://raw.githubusercontent.com/bageljp/zabbix-slack/master/img/zabbix_chart.png "Zabbix Server to Slack.com")
 
 # Installation
 
