@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 
 # config
 slack_url='https://hooks.slack.com/services/XXX/XXXX/XXXXX'
@@ -19,45 +19,35 @@ zabbix_password="zabbixpassword"
 chart_period=3600
 chart_width=1280
 chart_height=390
-
-
-chart_baseurl="http://zabbix.example.com/~myuser/charts"
-chart_basedir="/home/myuser/public_html/charts"
+chart_baseurl="${zabbix_baseurl}/slack_charts"
+chart_basedir="/tmp/slack_charts"
+chart_cookie="/tmp/zcookies.txt"
 
 # set params
-host="`echo \"${params}\" | grep 'HOST: ' | awk -F'HOST: ' '{print $2}' | sed -e 's/
-//g'`"
-trigger_name="`echo \"${params}\" | grep 'TRIGGER_NAME: ' | awk -F'TRIGGER_NAME: ' '{print $2}' | sed -e 's/
-//g'`"
-trigger_status="`echo \"${params}\" | grep 'TRIGGER_STATUS: ' | awk -F'TRIGGER_STATUS: ' '{print $2}' | sed -e 's/
-//g'`"
-trigger_severity="`echo \"${params}\" | grep 'TRIGGER_SEVERITY: ' | awk -F'TRIGGER_SEVERITY: ' '{print $2}' | sed -e 's/
-//g'`"
-trigger_url="`echo \"${params}\" | grep 'TRIGGER_URL: ' | awk -F'TRIGGER_URL: ' '{print $2}' | sed -e 's/
-//g'`"
-datetime="`echo \"${params}\" | grep 'DATETIME: ' | awk -F'DATETIME: ' '{print $2}' | sed -e 's/
-//g'`"
-item_value="`echo \"${params}\" | grep 'ITEM_VALUE: ' | awk -F'ITEM_VALUE: ' '{print $2}' | sed -e 's/
-//g'`"
-event_id="`echo \"${params}\" | grep 'EVENT_ID: ' | awk -F'EVENT_ID: ' '{print $2}' | sed -e 's/
-//g'`"
-item_id="`echo \"${params}\" | grep 'ITEM_ID: ' | awk -F'ITEM_ID: ' '{print $2}' | sed -e 's/
-//g'`"
+host="`echo \"${params}\" | grep 'HOST: ' | awk -F'HOST: ' '{print $2}' | sed -e 's///g'`"
+trigger_name="`echo \"${params}\" | grep 'TRIGGER_NAME: ' | awk -F'TRIGGER_NAME: ' '{print $2}' | sed -e 's///g'`"
+trigger_status="`echo \"${params}\" | grep 'TRIGGER_STATUS: ' | awk -F'TRIGGER_STATUS: ' '{print $2}' | sed -e 's///g'`"
+trigger_severity="`echo \"${params}\" | grep 'TRIGGER_SEVERITY: ' | awk -F'TRIGGER_SEVERITY: ' '{print $2}' | sed -e 's///g'`"
+trigger_url="`echo \"${params}\" | grep 'TRIGGER_URL: ' | awk -F'TRIGGER_URL: ' '{print $2}' | sed -e 's///g'`"
+datetime="`echo \"${params}\" | grep 'DATETIME: ' | awk -F'DATETIME: ' '{print $2}' | sed -e 's///g'`"
+item_value="`echo \"${params}\" | grep 'ITEM_VALUE: ' | awk -F'ITEM_VALUE: ' '{print $2}' | sed -e 's///g'`"
+event_id="`echo \"${params}\" | grep 'EVENT_ID: ' | awk -F'EVENT_ID: ' '{print $2}' | sed -e 's///g'`"
+item_id="`echo \"${params}\" | grep 'ITEM_ID: ' | awk -F'ITEM_ID: ' '{print $2}' | sed -e 's///g'`"
 
-if [ "$item_id" != "" ]; then
+# get charts
+if [ "${item_id}" != "" ]; then
     timestamp=$(date +%s)
 
-    $cmd_wget --save-cookies=/tmp/zcookies.txt --keep-session-cookies --post-data "name=${zabbix_username}&password={$zabbix_password}&enter=Sign+in" -O /dev/null -q "${zabbix_baseurl}/index.php?login=1";
-    $cmd_wget --load-cookies=/tmp/zcookies.txt  -O "$chart_basedir/graph-{$item_id}-{$timestamp}.png" -q "${zabbix_baseurl}/chart.php?&itemid=${item_id}&width=${chart_width}&period=${chart_period}";
-    chart_url="${chart_baseurl}/graph-{$item_id}-{$timestamp}.png\n";
-    rm /tmp/zcookies.txt
+    ${cmd_wget} --save-cookies="${chart_cookie}_${timestamp}" --keep-session-cookies --post-data "name=${zabbix_username}&password=${zabbix_password}&enter=Sign+in" -O /dev/null -q "${zabbix_baseurl}/index.php?login=1"
+    ${cmd_wget} --load-cookies="${chart_cookie}_${timestamp}"  -O "${chart_basedir}/graph-${item_id}-${timestamp}.png" -q "${zabbix_baseurl}/chart.php?&itemids=${item_id}&width=${chart_width}&period=${chart_period}"
+    chart_url="${chart_baseurl}/graph-${item_id}-${timestamp}.png"
+    rm -f ${chart_cookie}_${timestamp}
 
     # if triger url is empty then we link to the graph with the item_id
     if [ "${trigger_url}" == "" ]; then
-        trigger_url="${zabbix_baseurl}/history.php?action=showgraph&itemid=${item_id}"
+        trigger_url="${zabbix_baseurl}/history.php?action=showgraph&itemids=${item_id}"
     fi
-fi;
-
+fi
 
 # set color
 if [ "${trigger_status}" == 'OK' ]; then

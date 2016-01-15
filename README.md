@@ -3,7 +3,7 @@
 
 Zabbix Server Action to Slack.com
 
-![Zabbix Server to Slack.com](https://raw.githubusercontent.com/hdkiller/zabbix-slack/master/img/zabbix_chart.png "Zabbix Server to Slack.com")
+![Zabbix Server to Slack.com](https://raw.githubusercontent.com/bageljp/zabbix-slack/master/img/zabbix_chart.png "Zabbix Server to Slack.com")
 
 # Installation
 
@@ -15,7 +15,7 @@ Zabbix Server Action to Slack.com
 
 ```
 cd /usr/lib/zabbix/alertscripts    # AlertScriptsPath
-wget https://raw.githubusercontent.com/hdkiller/zabbix-slack/master/slack.sh
+wget https://raw.githubusercontent.com/bageljp/zabbix-slack/master/slack.sh
 chmod a+x slack.sh
 vi slack.sh
 ```
@@ -28,6 +28,10 @@ vi slack.sh
   <tr>
     <td><tt>slack_username</tt></td>
     <td>slack post username.</td>
+  </tr>
+  <tr>
+    <td><tt>emoji</tt></td>
+    <td>slack emoji.</td>
   </tr>
   <tr>
     <td><tt>zabbix_baseurl</tt></td>
@@ -60,13 +64,6 @@ vi slack.sh
   <tr>
     <td><tt>chart_basedir</tt></td>
     <td>charts will be downloaded there</td>
-  </tr>
-
-
-
-  <tr>
-    <td><tt>emoji</tt></td>
-    <td>slack emoji.</td>
   </tr>
 </table>
 
